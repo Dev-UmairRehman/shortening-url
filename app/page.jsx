@@ -2,9 +2,6 @@
 
 import { useState } from "react";
 
-const SHORT_URL_BASE =
-  "https://www.upwork.com/freelancers/~01d61b2a7e373d4524?referrer_url_path=%2Fnx%2Fsearch%2Ftalent%2Fdetails%2F~01d61b2a7e373d4524%2Fprofile";
-
 export default function HomePage() {
   const [longUrl, setLongUrl] = useState("");
   const [shortCode, setShortCode] = useState("");
@@ -31,7 +28,9 @@ export default function HomePage() {
         setError(data.error || "Something went wrong.");
         return;
       }
-      setResult({ shortUrl: `${SHORT_URL_BASE}/${data.shortCode}` });
+      const origin =
+        typeof window !== "undefined" ? window.location.origin : "";
+      setResult({ shortUrl: `${origin}/${data.shortCode}` });
       setLongUrl("");
       setShortCode("");
     } catch (err) {
